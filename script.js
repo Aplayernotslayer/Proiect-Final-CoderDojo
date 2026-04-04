@@ -1,9 +1,9 @@
 const GalleryImages = document.getElementById(gallery);
 
-const TestImage = [
+const images = [
     { src: "https://picsum.photos/300?1", name: "Test1" },
-    { src: "https://picsum.photos/300?1", name: "Test2" },
-    { src: "https://picsum.photos/300?1", name: "Test3" },
+    { src: "https://picsum.photos/300?2", name: "Test2" },
+    { src: "https://picsum.photos/300?3", name: "Test3" },
 ]
 
 function renderGallery(images) {
@@ -17,3 +17,5 @@ function renderGallery(images) {
         gallery.appendChild(img)
     })
 }
+
+renderGallery(images);
