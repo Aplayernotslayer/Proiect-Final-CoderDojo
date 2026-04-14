@@ -1,0 +1,363 @@
+/* ============================================
+   GALLERY — style.css
+   ============================================ */
+
+:root {
+  --color-bg:           #7a006e;
+  --color-magenta:      #cc00cc;
+  --color-magenta-light:#e600e6;
+  --color-card-bg:      rgba(80, 0, 80, 0.55);
+  --color-section-bg:   rgba(100, 0, 100, 0.4);
+  --color-text-main:    rgba(255, 255, 255, 0.92);
+  --color-text-muted:   rgba(255, 255, 255, 0.55);
+  --color-border:       rgba(220, 0, 220, 0.45);
+  --color-title:        #1a0033;
+
+  --radius-sm: 6px;
+  --radius-md: 10px;
+  --radius-lg: 14px;
+
+  --font-display: 'Playfair Display', Inria, serif;
+  --font-body:    'DM Sans', sans-serif;
+}
+
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+body {
+  font-family: var(--font-body);
+  background: linear-gradient(150deg, #5a004f 0%, #c000c0 45%, #8800a0 100%);
+  min-height: 100vh;
+  padding: 24px 20px 40px;
+  color: var(--color-text-main);
+}
+
+
+/* ============================================
+   HEADER
+   ============================================ */
+.site-header {
+  background: linear-gradient(180deg, #780060 0%, #bb00bb 100%);
+  border: 2px solid var(--color-magenta-light);
+  border-radius: var(--radius-lg);
+  padding: 20px 24px 24px;
+  margin-bottom: 18px;
+}
+
+.site-title {
+  font-family: var(--font-display);
+  font-size: 38px;
+  font-weight: 700;
+  color: var(--color-title);
+  text-shadow: 1px 2px 4px rgba(0,0,0,0.4);
+  margin-bottom: 16px;
+}
+
+.search-row {
+  display: flex;
+  gap: 10px;
+  align-items: center;
+}
+
+.search-input {
+  flex: 1;
+  background: rgba(255,255,255,0.12);
+  border: 1px solid rgba(32, 30, 30, 0.808);
+  border-radius: var(--radius-sm);
+  padding: 9px 16px;
+  color: var(--color-text-main);
+  font-family: var(--font-body);
+  font-size: 14px;
+  outline: none;
+  transition: border-color 0.2s;
+}
+.search-input::placeholder { color: var(--color-text-muted); }
+.search-input:focus { border-color: rgba(255,255,255,0.7); }
+
+
+/* ============================================
+   FILTERS BUTTON + DROPDOWN
+   ============================================ */
+
+/* Wrapper provides the anchor for the dropdown's absolute position */
+.filters-wrapper {
+  position: relative;
+}
+
+.btn-filters {
+  background: rgba(40,0,40,0.55);
+  border: 1px solid rgba(255,255,255,0.35);
+  border-radius: var(--radius-sm);
+  padding: 9px 22px;
+  color: var(--color-text-main);
+  font-family: var(--font-body);
+  font-size: 14px;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  transition: background 0.2s, border-color 0.2s;
+  white-space: nowrap;
+}
+.btn-filters:hover {
+  background: rgba(180,0,180,0.4);
+  border-color: rgba(255,255,255,0.6);
+}
+
+/* The little arrow rotates when dropdown is open */
+.filters-arrow {
+  display: inline-block;
+  font-size: 11px;
+  transition: transform 0.2s;
+}
+.filters-wrapper.open .filters-arrow {
+  transform: rotate(180deg);
+}
+
+/* DROPDOWN PANEL */
+.filters-dropdown {
+  display: none;                        /* hidden by default */
+  position: absolute;
+  top: calc(100% + 8px);               /* just below the button */
+  right: 0;                            /* aligns to the right edge of button */
+  width: 220px;
+  background: #3a0038;
+  border: 1px solid rgba(220,0,220,0.6);
+  border-radius: var(--radius-md);
+  padding: 14px 16px;
+  z-index: 100;                        /* floats above everything else */
+  box-shadow: 0 8px 32px rgba(0,0,0,0.5);
+}
+
+/* JS adds .open to .filters-wrapper to show the dropdown */
+.filters-wrapper.open .filters-dropdown {
+  display: block;
+}
+
+.dropdown-label {
+  font-size: 11px;
+  font-weight: 500;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--color-text-muted);
+  margin-bottom: 10px;
+}
+
+/* Each checkbox row */
+.filter-option {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 7px 4px;
+  font-size: 14px;
+  color: var(--color-text-main);
+  cursor: pointer;
+  border-radius: var(--radius-sm);
+  transition: background 0.15s;
+}
+.filter-option:hover {
+  background: rgba(200,0,200,0.2);
+}
+
+/* Style the checkbox itself */
+.filter-option input[type="checkbox"] {
+  width: 15px;
+  height: 15px;
+  accent-color: var(--color-magenta);
+  cursor: pointer;
+  flex-shrink: 0;
+}
+
+/* Row of action buttons at the bottom of the dropdown */
+.dropdown-actions {
+  display: flex;
+  gap: 8px;
+  margin-top: 14px;
+  padding-top: 12px;
+  border-top: 1px solid rgba(220,0,220,0.3);
+}
+
+.btn-clear {
+  flex: 1;
+  background: transparent;
+  border: 1px solid rgba(255,255,255,0.25);
+  border-radius: var(--radius-sm);
+  padding: 7px;
+  color: var(--color-text-muted);
+  font-family: var(--font-body);
+  font-size: 13px;
+  cursor: pointer;
+  transition: background 0.2s;
+}
+.btn-clear:hover { background: rgba(255,255,255,0.07); }
+
+.btn-apply {
+  flex: 1;
+  background: rgba(200,0,200,0.45);
+  border: 1px solid rgba(255,100,255,0.5);
+  border-radius: var(--radius-sm);
+  padding: 7px;
+  color: #fff;
+  font-family: var(--font-body);
+  font-size: 13px;
+  cursor: pointer;
+  transition: background 0.2s;
+}
+.btn-apply:hover { background: rgba(220,0,220,0.6); }
+
+
+/* ============================================
+   MAIN / TAGS
+   ============================================ */
+.main-content { display: flex; flex-direction: column; gap: 18px; }
+
+.tags-section {
+  background: var(--color-section-bg);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-lg);
+  padding: 16px 20px;
+  text-align: center;
+}
+
+.tags-heading {
+  font-family: var(--font-display);
+  font-style: italic;
+  font-size: 22px;
+  font-weight: 400;
+  margin-bottom: 12px;
+}
+
+.tags-container {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  justify-content: center;
+}
+
+.tag-pill {
+  background: rgba(50,0,50,0.6);
+  border: 1px solid rgba(200,0,200,0.55);
+  border-radius: var(--radius-sm);
+  padding: 6px 18px;
+  color: rgba(255,255,255,0.82);
+  font-family: var(--font-body);
+  font-size: 13px;
+  cursor: pointer;
+  transition: background 0.2s, border-color 0.2s;
+}
+.tag-pill:hover {
+  background: rgba(170,0,170,0.5);
+  border-color: rgba(255,100,255,0.7);
+}
+.tag-pill.active {
+  background: rgba(200,0,200,0.45);
+  border-color: rgba(255,150,255,0.8);
+  color: #fff;
+}
+
+
+/* ============================================
+   GALLERY GRID
+   ============================================ */
+.gallery-frame {
+  background: rgba(150,0,150,0.28);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-lg);
+  padding: 16px;
+}
+
+.gallery-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 14px;
+}
+
+/* IMAGE CARD */
+.image-card {
+  background: var(--color-card-bg);
+  border: 1px solid rgba(200,0,200,0.45);
+  border-radius: var(--radius-md);
+  padding: 10px;
+  transition: transform 0.2s, border-color 0.2s;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+.image-card:hover {
+  transform: translateY(-3px);
+  border-color: rgba(255,150,255,0.7);
+}
+
+.image-card.hidden { display: none; }
+
+.card-title {
+  font-family: var(--font-body);
+  font-size: 12px;
+  font-weight: 400;
+  color: rgba(255,255,255,0.8);
+  text-align: center;
+}
+
+.card-figure {
+  margin: 0;
+  border-radius: 6px;
+  overflow: hidden;
+  background: linear-gradient(160deg, #1a0b3a 0%, #2d1466 50%, #1a2060 100%);
+  aspect-ratio: 3 / 4;
+}
+
+.card-figure {
+  aspect-ratio: 4 / 3;        
+  
+}
+
+.card-figure img {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;        
+  display: block;
+}
+
+.card-tags {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 5px;
+}
+
+.card-tag {
+  background: rgba(180,0,180,0.35);
+  border: 1px solid rgba(220,0,220,0.4);
+  border-radius: 4px;
+  padding: 2px 8px;
+  font-size: 11px;
+  color: rgba(255,200,255,0.9);
+  font-family: var(--font-body);
+}
+.no-results {
+  text-align: center;
+  padding: 32px;
+  color: var(--color-text-muted);
+  font-size: 15px;
+}
+
+
+/* ============================================
+   FOOTER PART
+   ============================================ */
+.site-footer {
+  text-align: center;
+  margin-top: 32px;
+  font-size: 13px;
+  color: rgba(255,255,255,0.35);
+}
+
+
+/* ============================================
+   RESPONSIVE
+   ============================================ */
+@media (max-width: 600px) {
+  .gallery-grid { grid-template-columns: repeat(2, 1fr); }
+  .site-title { font-size: 28px; }
+}
+@media (max-width: 380px) {
+  .gallery-grid { grid-template-columns: 1fr; }
+}

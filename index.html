@@ -1,40 +1,153 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Proiect Final</title>
-    <link rel="stylesheet" href="style.css">
-    
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Image Gallery</title>
+  <link rel="stylesheet" href="style.css">
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,700;1,400&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet">
 </head>
 <body>
-    <nav class="container">
-        <h1>Gallery</h1>
-        <input type="text" placeholder="Search an image here:" class="search-bar">
-        <button class="upload-button">Upload an image</button>
 
-    </nav>
+  <!-- ========== HEADER ========== -->
+  <header class="site-header">
+    <h1 class="site-title">Image Gallery</h1>
 
-    <div class="container">
-        <aside class="sidebar">
-            <h2>Tags</h2>
-            <ol id="tagList"> List of available tags: <br>
-                Tag1 
-                Tag2 
-                Tag3
-                Tag4
-                Tag5
-                Tag6
+    <div class="search-row">
+      <input type="text" class="search-input" placeholder="Search for something..." id="searchInput">
 
-            </ol>
-        </aside>
+      <!-- FILTERS BUTTON + DROPDOWN — both live inside .filters-wrapper apparently-->
+      <div class="filters-wrapper">
+        <button class="btn-filters" id="filtersBtn">
+          Filters <span class="filters-arrow">▾</span>
+        </button>
 
-        <main class="gallery" id="gallery">
+        <!-- DROPDOWN PANEL (hidden until button clicked) -->
+        <div class="filters-dropdown" id="filtersDropdown">
+          <p class="dropdown-label">Filter by tags</p>
 
-        </main>
+          <!--
+            Each checkbox value must 1:1 match
+            a tag used in data-tags on the image cards below
+          -->
+          <label class="filter-option"><input type="checkbox" value="nature"> Nature</label>
+          <label class="filter-option"><input type="checkbox" value="night sky"> Night sky</label>
+          <label class="filter-option"><input type="checkbox" value="portraits"> Portraits</label>
+          <label class="filter-option"><input type="checkbox" value="abstract"> Abstract</label>
+          <label class="filter-option"><input type="checkbox" value="architecture"> Architecture</label>
+          <label class="filter-option"><input type="checkbox" value="street"> Street</label>
+          <label class="filter-option"><input type="checkbox" value="macro"> Macro</label>
+          <label class="filter-option"><input type="checkbox" value="travel"> Travel</label>
+
+          <div class="dropdown-actions">
+            <button class="btn-clear" id="clearFilters">Clear all</button>
+            <button class="btn-apply" id="applyFilters">Apply</button>
+          </div>
+        </div>
+      </div>
     </div>
+  </header>
 
+  <!-- ========== MAIN STUFF ========== -->
+  <main class="main-content">
 
-   <script src="script.js"></script> 
+    <!-- TAG PILLS -->
+    <section class="tags-section">
+      <h2 class="tags-heading">Tags</h2>
+      <div class="tags-container">
+        <button class="tag-pill active" data-filter="all">All</button>
+        <button class="tag-pill" data-filter="nature">Nature</button>
+        <button class="tag-pill" data-filter="night sky">Night sky</button>
+        <button class="tag-pill" data-filter="portraits">Portraits</button>
+        <button class="tag-pill" data-filter="abstract">Abstract</button>
+        <button class="tag-pill" data-filter="architecture">Architecture</button>
+        <button class="tag-pill" data-filter="street">Street</button>
+        <button class="tag-pill" data-filter="macro">Macro</button>
+        <button class="tag-pill" data-filter="travel">Travel</button>
+      </div>
+    </section>
+
+    <!-- GALLERY -->
+    <section class="gallery-frame">
+      <div class="gallery-grid" id="galleryGrid">
+
+        <div class="image-card" data-tags="night sky, nature">
+          <h3 class="card-title">Moonlit Clouds</h3>
+          <figure class="card-figure">
+            <img src="photos/Image1.jpg" alt="Moonlit purple clouds at night">
+          </figure>
+          <div class="card-tags">
+            <span class="card-tag">night sky</span>
+            <span class="card-tag">nature</span>
+          </div>
+        </div>
+
+        <div class="image-card" data-tags="night sky, abstract">
+          <h3 class="card-title">Crescent Night</h3>
+          <figure class="card-figure">
+            <img src="photos/Image2.jpg" alt="Crescent moon over clouds">
+          </figure>
+          <div class="card-tags">
+            <span class="card-tag">night sky</span>
+            <span class="card-tag">abstract</span>
+          </div>
+        </div>
+
+        <div class="image-card" data-tags="nature, travel">
+          <h3 class="card-title">Starry Drift</h3>
+          <figure class="card-figure">
+            <img src="photos/Image3.jpg" alt="Stars through clouds">
+          </figure>
+          <div class="card-tags">
+            <span class="card-tag">nature</span>
+            <span class="card-tag">travel</span>
+          </div>
+        </div>
+
+        <div class="image-card" data-tags="abstract, night sky">
+          <h3 class="card-title">Violet Sky</h3>
+          <figure class="card-figure">
+            <img src="photos/Image4.jpg" alt="Violet night sky">
+          </figure>
+          <div class="card-tags">
+            <span class="card-tag">abstract</span>
+            <span class="card-tag">night sky</span>
+          </div>
+        </div>
+
+        <div class="image-card" data-tags="architecture, street">
+          <h3 class="card-title">Cloud Veil</h3>
+          <figure class="card-figure">
+            <img src="photos/Image5.jpg" alt="Cloud veil at night">
+          </figure>
+          <div class="card-tags">
+            <span class="card-tag">architecture</span>
+            <span class="card-tag">street</span>
+          </div>
+        </div>
+
+        <div class="image-card" data-tags="macro, nature">
+          <h3 class="card-title">Deep Purple</h3>
+          <figure class="card-figure">
+            <img src="photos/Image6.jpg" alt="Deep purple sky">
+          </figure>
+          <div class="card-tags">
+            <span class="card-tag">macro</span>
+            <span class="card-tag">nature</span>
+          </div>
+        </div>
+
+      </div>
+
+      <p class="no-results" id="noResults" style="display:none;">No images match this filter.</p>
+    </section>
+
+  </main>
+
+  <footer class="site-footer">
+    <p>&copy; 2025 Image Gallery. All rights reserved.</p>
+  </footer>
+
+  <script src="gallery.js"></script>
 </body>
 </html>
